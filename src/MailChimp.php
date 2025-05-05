@@ -137,12 +137,12 @@ class MailChimp
      * @param   string $method  URL of the API request method
      * @param   array  $args    Assoc array of arguments (if any)
      * @param   int    $timeout Timeout limit for request in seconds
-     *
+     * @param   array  $headers Additional headers to send with the request
      * @return  array|false   Assoc array of API response, decoded from JSON
      */
-    public function delete($method, $args = array(), $timeout = self::TIMEOUT)
+    public function delete($method, $args = array(), $timeout = self::TIMEOUT, $headers = array())
     {
-        return $this->makeRequest('delete', $method, $args, $timeout);
+        return $this->makeRequest('delete', $method, $args, $timeout, $headers);
     }
 
     /**
@@ -151,12 +151,12 @@ class MailChimp
      * @param   string $method  URL of the API request method
      * @param   array  $args    Assoc array of arguments (usually your data)
      * @param   int    $timeout Timeout limit for request in seconds
-     *
+     * @param   array  $headers Additional headers to send with the request
      * @return  array|false   Assoc array of API response, decoded from JSON
      */
-    public function get($method, $args = array(), $timeout = self::TIMEOUT)
+    public function get($method, $args = array(), $timeout = self::TIMEOUT, $headers = array())
     {
-        return $this->makeRequest('get', $method, $args, $timeout);
+        return $this->makeRequest('get', $method, $args, $timeout, $headers);
     }
 
     /**
@@ -165,12 +165,12 @@ class MailChimp
      * @param   string $method  URL of the API request method
      * @param   array  $args    Assoc array of arguments (usually your data)
      * @param   int    $timeout Timeout limit for request in seconds
-     *
+     * @param   array  $headers Additional headers to send with the request
      * @return  array|false   Assoc array of API response, decoded from JSON
      */
-    public function patch($method, $args = array(), $timeout = self::TIMEOUT)
+    public function patch($method, $args = array(), $timeout = self::TIMEOUT, $headers = array())
     {
-        return $this->makeRequest('patch', $method, $args, $timeout);
+        return $this->makeRequest('patch', $method, $args, $timeout, $headers);
     }
 
     /**
@@ -179,10 +179,10 @@ class MailChimp
      * @param   string $method  URL of the API request method
      * @param   array  $args    Assoc array of arguments (usually your data)
      * @param   int    $timeout Timeout limit for request in seconds
-     *
+     * @param   array  $headers Additional headers to send with the request
      * @return  array|false   Assoc array of API response, decoded from JSON
      */
-    public function post($method, $args = array(), $timeout = self::TIMEOUT)
+    public function post($method, $args = array(), $timeout = self::TIMEOUT, $headers = array())
     {
         return $this->makeRequest('post', $method, $args, $timeout);
     }
@@ -193,12 +193,13 @@ class MailChimp
      * @param   string $method  URL of the API request method
      * @param   array  $args    Assoc array of arguments (usually your data)
      * @param   int    $timeout Timeout limit for request in seconds
+     * @param   array  $headers Additional headers to send with the request
      *
      * @return  array|false   Assoc array of API response, decoded from JSON
      */
-    public function put($method, $args = array(), $timeout = self::TIMEOUT)
+    public function put($method, $args = array(), $timeout = self::TIMEOUT, $headers = array())
     {
-        return $this->makeRequest('put', $method, $args, $timeout);
+        return $this->makeRequest('put', $method, $args, $timeout, $headers);
     }
 
     /**
@@ -211,7 +212,7 @@ class MailChimp
      *
      * @return array|false Assoc array of decoded result
      */
-    private function makeRequest($http_verb, $method, $args = array(), $timeout = self::TIMEOUT)
+    private function makeRequest($http_verb, $method, $args = array(), $timeout = self::TIMEOUT, $headers = array())
     {
         $url = $this->api_endpoint . '/' . $method;
 
@@ -222,6 +223,10 @@ class MailChimp
             'Content-Type: application/vnd.api+json',
             'Authorization: apikey ' . $this->api_key
         );
+
+        if (!empty($headers)) {
+            $httpHeader = array_merge($httpHeader, $headers);
+        }
 
         if (isset($args["language"])) {
             $httpHeader[] = "Accept-Language: " . $args["language"];
