@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: drewm-mailchimp-api
+  description: "A forked version of drewm/mailchimp-api: Super-simple, minimum abstraction MailChimp API v3 wrapper, in PHP."
+  annotations:
+    github.com/project-slug: blstrco/drewm-mailchimp-api
+    backstage.io/techdocs-ref: dir:.
+    linktr.ee/deployable: No
+    linktr.ee/visibility: External
+    linktr.ee/personal-data: No
+    linktr.ee/criticality: Low
+  tags:
+    - mailchimp
+spec:
+  type: library
+  lifecycle: production
+  owner: grow
