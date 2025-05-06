@@ -7,7 +7,7 @@ metadata:
     github.com/project-slug: blstrco/drewm-mailchimp-api
     backstage.io/techdocs-ref: dir:.
     linktr.ee/deployable: No
-    linktr.ee/visibility: Internal
+    linktr.ee/visibility: Public
     linktr.ee/personal-data: No
     linktr.ee/criticality: Low
   tags:
